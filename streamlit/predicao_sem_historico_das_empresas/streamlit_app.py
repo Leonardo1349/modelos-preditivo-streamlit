@@ -11,9 +11,9 @@ import pandas as pd
 import os
 
 
-def criarModelo(modelo, base01, alvo):
-    x_train, x_test, y_train, y_test = train_test_split(base01.drop(alvo, axis=1),
-                                                        base01[alvo],
+def criarModelo(modelo, base, alvo):
+    x_train, x_test, y_train, y_test = train_test_split(base.drop(alvo, axis=1),
+                                                        base[alvo],
                                                         test_size=0.3,
                                                         random_state=42)
 
@@ -23,9 +23,9 @@ def criarModelo(modelo, base01, alvo):
 
 
 def importarModelo(modeloEscolhido):
-    url = 'streamlit/predicao_sem_historico_das_empresas/base01/dataset_sem_coluna_empresa.csv'
+    url = 'streamlit/predicao_sem_historico_das_empresas/base/dataset_sem_coluna_empresa.xlsx'
     alvo = 'IMPOSTOS_ESTADUAIS'
-    base01 = pd.read_csv(url, engine="openpyxl")
+    base = pd.read_excel(url, engine="openpyxl")
     
     dados = {
     'RECEITA_VENDAS_BENS_OU_SERVICOS': RECEITA_VENDAS_BENS_OU_SERVICOS,
@@ -39,9 +39,9 @@ def importarModelo(modeloEscolhido):
     atributosSelecionados = ['RECEITA_VENDAS_BENS_OU_SERVICOS', 'CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS', 'DESPESAS_RECEITAS_OPERACIONAIS', 
                              'RESULTADO_FINANCEIRO', 'RECEITAS', 'DISTRIBUICAO_DO_VALOR_ADICIONADO', 'IMPOSTOS_ESTADUAIS']
 
-    base01 = base01.loc[:, atributosSelecionados]
+    base = base.loc[:, atributosSelecionados]
 
-    return criarModelo(modeloEscolhido, base01, alvo)
+    return criarModelo(modeloEscolhido, base, alvo)
 
 
 modeloET = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',
