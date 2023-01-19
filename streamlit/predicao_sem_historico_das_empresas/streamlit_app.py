@@ -1,6 +1,4 @@
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.ensemble import RandomForestRegressor
 
 import streamlit as st
 import joblib
@@ -43,29 +41,9 @@ def importarModelo(modeloEscolhido):
     return criarModelo(modeloEscolhido, base, alvo)
 
 
-
-modeloGB = GradientBoostingRegressor(alpha=0.9, ccp_alpha=0.0, criterion='friedman_mse',
-                                     init=None, learning_rate=0.1, loss='ls', max_depth=3,
-                                     max_features=None, max_leaf_nodes=None,
-                                     min_impurity_decrease=0.0, min_impurity_split=None,
-                                     min_samples_leaf=1, min_samples_split=2,
-                                     min_weight_fraction_leaf=0.0, n_estimators=100,
-                                     n_iter_no_change=None, presort='deprecated',
-                                     random_state=2444, subsample=1.0, tol=0.0001,
-                                     validation_fraction=0.1, verbose=0, warm_start=False)
-
-modeloRF = RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
-                                 max_depth=None, max_features='auto', max_leaf_nodes=None,
-                                 max_samples=None, min_impurity_decrease=0.0,
-                                 min_impurity_split=None, min_samples_leaf=1,
-                                 min_samples_split=2, min_weight_fraction_leaf=0.0,
-                                 n_estimators=100, n_jobs=-1, oob_score=False,
-                                 random_state=2444, verbose=0, warm_start=False)
-
-
 modelo_options = ['Gradient Boosting', 'Random Forest']
 
-modelo_values = {'Gradient Boosting': modeloGB, 'Random Forest': modeloRF}
+modelo_values = {'Gradient Boosting': , 'Random Forest': }
 
 
 st.header('Modelo de Predição de Empresas Sonegadoras de Impostos Estaduais - Sem Histórico das Empresas')
