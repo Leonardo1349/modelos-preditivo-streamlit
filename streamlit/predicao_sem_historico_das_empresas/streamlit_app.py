@@ -23,7 +23,7 @@ def criarModelo(modelo, base, alvo):
 
 
 def importarModelo(modeloEscolhido):
-    url = 'modelos-preditivo-streamlit/streamlit/predicao_sem_historico_das_empresas/base/dataset_sem_coluna_empresa.xlsx'
+    url = '/app/modelos-preditivo-streamlit/streamlit/predicao_sem_historico_das_empresas/base/dataset_sem_coluna_empresa.xlsx'
     alvo = 'IMPOSTOS_ESTADUAIS'
     base = pd.read_excel(url, engine="openpyxl")
     
