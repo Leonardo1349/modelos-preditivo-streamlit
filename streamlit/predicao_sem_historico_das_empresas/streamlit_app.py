@@ -66,7 +66,7 @@ modelo_options = ['Extra Trees', 'Gradient Boosting', 'Random Forest']
 modelo_values = {'Extra Trees': modeloET, 'Gradient Boosting': modeloGB, 'Random Forest': modeloRF}
 
 
-st.header('Modelo de Predição de Empresas Sonegadoras de Impostos Estaduais - Sem a Identificação das Empresas')
+st.header('Modelo de Predição de Sonegadores de Impostos Estaduais - Sem a Identificação da Empresa')
 st.subheader('Preencha as informações solicitadas para obter a predição:')
 
 # Definindo os campos de entrada
