@@ -23,18 +23,9 @@ def criarModelo(modelo, base, alvo):
 
 
 def importarModelo(modeloEscolhido):
-    url = 'streamlit/predicao_sem_historico_das_empresas/base/dataset_sem_coluna_empresa.xlsx'
+    url = 'C:/Users/Leonardo/Desktop/Disponibilizar Modelos/streamlit/predicao_sem_historico_das_empresas/base/dataset_sem_coluna_empresa.xlsx'
     alvo = 'IMPOSTOS_ESTADUAIS'
     base = pd.read_excel(url, engine="openpyxl")
-    
-    dados = {
-    'RECEITA_VENDAS_BENS_OU_SERVICOS': RECEITA_VENDAS_BENS_OU_SERVICOS,
-    'CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS': CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS,
-    'DESPESAS_RECEITAS_OPERACIONAIS': DESPESAS_RECEITAS_OPERACIONAIS,
-    'RESULTADO_FINANCEIRO': RESULTADO_FINANCEIRO,
-    'RECEITAS': RECEITAS,
-    'DISTRIBUICAO_DO_VALOR_ADICIONADO': DISTRIBUICAO_DO_VALOR_ADICIONADO,   
-}
     
     atributosSelecionados = ['RECEITA_VENDAS_BENS_OU_SERVICOS', 'CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS', 'DESPESAS_RECEITAS_OPERACIONAIS', 
                              'RESULTADO_FINANCEIRO', 'RECEITAS', 'DISTRIBUICAO_DO_VALOR_ADICIONADO', 'IMPOSTOS_ESTADUAIS']
@@ -44,28 +35,27 @@ def importarModelo(modeloEscolhido):
     return criarModelo(modeloEscolhido, base, alvo)
 
 
-modeloET = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='mse',
+modeloET = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='friedman_mse',
                                max_depth=None, max_features='auto', max_leaf_nodes=None,
                                max_samples=None, min_impurity_decrease=0.0,
-                               min_impurity_split=None, min_samples_leaf=1,
-                               min_samples_split=2, min_weight_fraction_leaf=0.0,
+                               min_samples_leaf=1, min_samples_split=2, min_weight_fraction_leaf=0.0,
                                n_estimators=100, n_jobs=-1, oob_score=False,
                                random_state=2444, verbose=0, warm_start=False)
 
-modeloGB = GradientBoostingRegressor(alpha=0.9, ccp_alpha=0.0, criterion='friedman_mse',
-                                     init=None, learning_rate=0.1, loss='ls', max_depth=3,
+
+modeloGB = GradientBoostingRegressor(alpha=0.9, ccp_alpha=0.0, 
+                                     init=None, learning_rate=0.1, max_depth=3,
                                      max_features=None, max_leaf_nodes=None,
-                                     min_impurity_decrease=0.0, min_impurity_split=None,
+                                     min_impurity_decrease=0.0, 
                                      min_samples_leaf=1, min_samples_split=2,
                                      min_weight_fraction_leaf=0.0, n_estimators=100,
-                                     n_iter_no_change=None, presort='deprecated',
-                                     random_state=2444, subsample=1.0, tol=0.0001,
+                                     n_iter_no_change=None, random_state=2444, subsample=1.0, tol=0.0001,
                                      validation_fraction=0.1, verbose=0, warm_start=False)
 
-modeloRF = RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+modeloRF = RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='friedman_mse',
                                  max_depth=None, max_features='auto', max_leaf_nodes=None,
                                  max_samples=None, min_impurity_decrease=0.0,
-                                 min_impurity_split=None, min_samples_leaf=1,
+                                 min_samples_leaf=1,
                                  min_samples_split=2, min_weight_fraction_leaf=0.0,
                                  n_estimators=100, n_jobs=-1, oob_score=False,
                                  random_state=2444, verbose=0, warm_start=False)
@@ -84,38 +74,31 @@ modelo_value = st.selectbox('Escolha o Modelo', options=modelo_options)
 modeloSelecionado = modelo_values.get(modelo_value)
 
 receita_com_vendas_value = st.number_input('Qual o valor das Receitas com Vendas de Bens ou Serviços ?')
-receita_com_vendas = receita_com_vendas_value.get(receita_com_vendas_value)
 
 custo_dos_bens_vendidos_value = st.number_input('Qual o valor do Custo dos Bens ou Serviços Vendidos ?')
-custo_dos_bens_vendidos = custo_dos_bens_vendidos_value.get(custo_dos_bens_vendidos_value)
 
 despesas_receitas_operacionais_value = st.number_input('Qual o valor das Despesas e Receitas Operacionais ?')
-despesas_receitas_operacionais = despesas_receitas_operacionais_value.get(despesas_receitas_operacionais_value)
 
 resultado_financeiro_value = st.number_input('Qual o valor do Resultado Financeiro ?')
-esultado_financeiro = resultado_financeiro_value.get(resultado_financeiro_value)
 
 receitas_value = st.number_input('Qual o valor das Receitas ?')
-receitas = receitas_value.get(receitas_value)
 
 distribuicao_do_valor_adicionado_value = st.number_input('Qual o valor da Distribuição do valor Adicionado ?')
-distribuicao_do_valor_adicionado = distribuicao_do_valor_adicionado_value.get(distribuicao_do_valor_adicionado_value)
-
 
 dados = {
-    'RECEITA_VENDAS_BENS_OU_SERVICOS': RECEITA_VENDAS_BENS_OU_SERVICOS,
-    'CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS': CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS,
-    'DESPESAS_RECEITAS_OPERACIONAIS': DESPESAS_RECEITAS_OPERACIONAIS,
-    'RESULTADO_FINANCEIRO': RESULTADO_FINANCEIRO,
-    'RECEITAS': RECEITAS,
-    'DISTRIBUICAO_DO_VALOR_ADICIONADO': DISTRIBUICAO_DO_VALOR_ADICIONADO,   
+    'RECEITA_VENDAS_BENS_OU_SERVICOS': receita_com_vendas_value,
+    'CUSTO_DOS_BENS_OU_SERVICOS_VENDIDOS': custo_dos_bens_vendidos_value,
+    'DESPESAS_RECEITAS_OPERACIONAIS': despesas_receitas_operacionais_value,
+    'RESULTADO_FINANCEIRO': resultado_financeiro_value,
+    'RECEITAS': receitas_value,
+    'DISTRIBUICAO_DO_VALOR_ADICIONADO': distribuicao_do_valor_adicionado_value,   
 }
 
 modelo = importarModelo(modeloSelecionado)
 botao = st.button('Efetuar Predição')
 if(botao):  
     dadosFormatados = pd.DataFrame([dados])
-    resultado = modelo.predict_proba(dadosFormatados)
-    prob =  round(resultado[0][0] * 100, 3)
-    st.write('Probabilidade de Sonegação: ', prob, ' %')
+    resultado = modelo.predict(dadosFormatados)
+    prob =  round(resultado[0] / 100, 2)
+    st.write('Probabilidade de Sonegação: ', prob, '%')
   
