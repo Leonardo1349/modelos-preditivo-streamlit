@@ -40,18 +40,8 @@ def importarModelo(modeloEscolhido):
 
     return criarModelo(modeloEscolhido, base, alvo)
 
-
-modelo_options = ['Gradient Boosting', 'Random Forest']
-
-modelo_values = {'Gradient Boosting': , 'Random Forest': }
-
-
 st.header('Modelo de Predição de Empresas Sonegadoras de Impostos Estaduais - Sem Histórico das Empresas')
 st.subheader('Preencha as informações solicitadas para obter a predição:')
-
-# Definindo os campos de entrada
-modelo_value = st.selectbox('Escolha o Modelo', options=modelo_options)
-modeloSelecionado = modelo_values.get(modelo_value)
 
 receita_com_vendas_value = st.number_input('Qual o valor das Receitas com Vendas de Bens ou Serviços ?')
 receita_com_vendas = receita_com_vendas_value.get(receita_com_vendas_value)
