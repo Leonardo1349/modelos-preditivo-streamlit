@@ -44,15 +44,19 @@ modeloET = ExtraTreesRegressor(bootstrap=False, ccp_alpha=0.0, criterion='friedm
                                n_estimators=100, n_jobs=-1, oob_score=False,
                                random_state=8150, verbose=0, warm_start=False)
 
-modeloGB = GradientBoostingRegressor(alpha=0.9, ccp_alpha=0.0, criterion='friedman_mse',
-                                     init=None, learning_rate=0.1, max_depth=3,
-                                     max_features=None, max_leaf_nodes=None,
-                                     min_impurity_decrease=0.0, 
-                                     min_samples_leaf=1, min_samples_split=2,
-                                     min_weight_fraction_leaf=0.0, n_estimators=100,
-                                     n_iter_no_change=None, 
-                                     random_state=8150, subsample=1.0, tol=0.0001,
-                                     validation_fraction=0.1, verbose=0, warm_start=False)
+modeloGB = ExtraTreesRegressor(verbose=0, warm_start=False)  
+                                                                     
+
+#modeloGB = GradientBoostingRegressor(alpha=0.9, ccp_alpha=0.0, criterion='friedman_mse',
+                                     #init=None, learning_rate=0.1, max_depth=3,
+                                     #max_features=None, max_leaf_nodes=None,
+                                     #min_impurity_decrease=0.0, 
+                                     #min_samples_leaf=1, min_samples_split=2,
+                                     #min_weight_fraction_leaf=0.0, n_estimators=100,
+                                     #n_iter_no_change=None, 
+                                     #random_state=8150, subsample=1.0, tol=0.0001,
+                                     #validation_fraction=0.1, verbose=0, warm_start=False)
+
 
 modeloRF = RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='friedman_mse',
                                  max_depth=None, max_features='auto', max_leaf_nodes=None,
@@ -100,6 +104,6 @@ botao = st.button('Efetuar Predição')
 if(botao):  
     dadosFormatados = pd.DataFrame([dados])
     resultado = modelo.predict(dadosFormatados)
-    prob =  round(resultado[0] / 100, 2)
-    st.write('Probabilidade de Sonegação: ', prob, '%')
+    valorPredito =  resultado[0] 
+    st.write('O valor predito de impostos estaduais a ser pago é de :', '[',valorPredito,']')
   
